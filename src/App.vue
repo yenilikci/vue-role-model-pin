@@ -1,19 +1,20 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="container">
+    <b-row>
+      <b-col sm="4"> <add-role-model /> </b-col>
+      <b-col sm="8"> </b-col>
+    </b-row>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import AddRoleModel from "./components/AddRoleModel.vue";
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
-  }
-}
+    AddRoleModel,
+  },
+};
 </script>
 
 <style>
