@@ -1,18 +1,45 @@
 <template>
   <div class="container">
     <b-row>
-      <b-col sm="4"> <add-role-model /> </b-col>
-      <b-col sm="8"> </b-col>
+      <b-col sm="3">
+        <add-role-model @fromAddRoleModel="updateCard($event)" />
+      </b-col>
+      <b-col sm="9">
+        <div class="container p-2">
+          <model-card
+            v-for="(item, index) in card"
+            :key="index"
+            :modelName="item[0]"
+            :modelJob="item[1]"
+            :modelNationality="item[2]"
+            :modelBirthDay="item[3]"
+            :modelAbout="item[4]"
+            :modelPicture="item[5]"
+            :tags="item[6]"
+          />
+        </div>
+      </b-col>
     </b-row>
   </div>
 </template>
 
 <script>
-import AddRoleModel from "./components/AddRoleModel.vue";
+import globalComponents from "./components/globalComponents";
+
 export default {
   name: "App",
   components: {
-    AddRoleModel,
+    ...globalComponents,
+  },
+  data() {
+    return {
+      card: [],
+    };
+  },
+  methods: {
+    updateCard(e) {
+      this.card.push(e);
+    },
   },
 };
 </script>

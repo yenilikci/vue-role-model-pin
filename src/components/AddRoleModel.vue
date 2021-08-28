@@ -1,5 +1,5 @@
 <template>
-  <div class="container add-role-model">
+  <div class="add-role-model">
     <b-img :src="imageSource" v-bind="mainProps" rounded class="mt-2"></b-img>
     <b-form>
       <b-form-input
@@ -53,7 +53,7 @@
         block
         variant="outline-success"
         class="mt-2"
-        >Button</b-button
+        >Add</b-button
       >
     </b-form>
   </div>
@@ -82,15 +82,16 @@ export default {
   },
   methods: {
     sendRoleModel() {
-      console.log(
+      const arr = [
         this.modelName,
         this.modelJob,
         this.modelNationality,
         this.modelBirthday,
         this.modelAbout,
+        this.modelPicture,
         this.tags,
-        this.imageSource
-      );
+      ];
+      this.$emit("fromAddRoleModel", arr);
     },
   },
 };
