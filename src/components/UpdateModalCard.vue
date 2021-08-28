@@ -1,7 +1,6 @@
 <template>
-  <div class="add-role-model shadow p-4">
-    <b-img :src="imageSource" v-bind="mainProps" rounded class="mt-2"></b-img>
-    <b-form>
+  <div>
+    <b-modal ref="my-modal" hide-footer title="Using Component Methods">
       <b-form-input
         class="mt-2"
         v-model="modelName"
@@ -49,39 +48,36 @@
         class="mt-2"
       ></b-form-tags>
       <b-button
-        @click="sendRoleModel()"
-        block
-        variant="outline-success"
         class="mt-2"
-        >Add</b-button
+        variant="outline-warning"
+        block
+        @click="toggleModal"
+        >Update Role Model</b-button
       >
-    </b-form>
+    </b-modal>
   </div>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      modelName: "",
-      modelJob: "",
-      modelNationality: "",
-      modelBirthday: "",
-      modelAbout: "",
-      modelPicture: "",
-      tags: [],
-      mainProps: {
-        blankColor: "#777",
-        width: 150,
-        height: 150,
-        class: "m1",
-      },
-      imageSource:
-        "https://media.istockphoto.com/vectors/character-with-a-super-hero-shadow-representing-success-in-life-at-vector-id697667340?b=1&k=6&m=697667340&s=612x612&w=0&h=L_fSKXFwtrCN0O_WPTMBFzZpZhzneNXIuKQ_IO1_FBs=",
-    };
+  props: {
+    modelName: String,
+    modelJob: String,
+    modelNationality: String,
+    modelBirthday: String,
+    modelAbout: String,
+    modelPicture: String,
+    tags: Array,
   },
   methods: {
-    sendRoleModel() {
+    showModal() {
+      this.$refs["my-modal"].show();
+    },
+    hideModal() {
+      this.$refs["my-modal"].hide();
+    },
+    toggleModal() {
+      this.$refs["my-modal"].toggle("#toggle-btn");
       const arr = [
         this.modelName,
         this.modelJob,
@@ -91,16 +87,11 @@ export default {
         this.modelPicture,
         this.tags,
       ];
-      this.$emit("fromAddRoleModel", arr);
+      this.$emit("closeModel", arr);
     },
+  },
+  mounted() {
+    this.showModal();
   },
 };
 </script>
-
-<style>
-.add-role-model {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-</style>

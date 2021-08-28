@@ -2,11 +2,9 @@
   <b-card
     :title="modelName"
     :img-src="modelPicture"
-    img-alt="Image"
     img-top
     tag="article"
-    style="max-width: 20rem"
-    class="mb-2"
+    class="shadow mb-2"
   >
     <b-card-text>
       {{ modelJob }} - {{ modelNationality }} - {{ modelBirthday }}
@@ -16,11 +14,16 @@
     </b-card-text>
     <div class="tagsClass my-3">
       <b-card-text class="tagsText" v-for="(tag, index) in tags" :key="index">
-        {{ tag }}
+        #{{ tag }}
       </b-card-text>
     </div>
 
-    <b-button href="#" variant="primary">Go somewhere</b-button>
+    <div class="bottomButtons">
+      <b-button @click="updateEmitIndex()" variant="outline-success"
+        >Update</b-button
+      >
+      <b-button variant="outline-danger">Delete</b-button>
+    </div>
   </b-card>
 </template>
 
@@ -34,9 +37,15 @@ export default {
     modelAbout: String,
     modelPicture: String,
     tags: Array,
+    index: Number,
   },
   data() {
     return {};
+  },
+  methods: {
+    updateEmitIndex() {
+      this.$emit("updateEmitIndex", this.index);
+    },
   },
 };
 </script>
@@ -44,16 +53,25 @@ export default {
 <style>
 .tagsClass {
   display: flex;
-  flex-direction: row;
   flex-wrap: wrap;
+  justify-content: center;
 }
 .tagsText {
   background-color: rgb(132, 170, 209);
   margin: 3px;
-  font-size: 16px;
+  font-size: 14px;
   font-family: Arial, Helvetica, sans-serif;
-  padding: 4px;
+  padding: 5px;
+  border-radius: 16px;
   box-shadow: 0 0 4px rgb(92, 92, 223);
   color: #fff;
+}
+.card-text:last-child {
+  margin-bottom: 3px !important;
+}
+.bottomButtons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 </style>
