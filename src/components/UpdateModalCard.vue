@@ -1,6 +1,11 @@
 <template>
   <div>
-    <b-modal ref="my-modal" hide-footer title="Using Component Methods">
+    <b-modal
+      @hidden="hideModal()"
+      ref="my-modal"
+      hide-footer
+      :title="modelName + '  Role Model Card'"
+    >
       <b-form-input
         class="mt-2"
         v-model="modelName"
@@ -75,6 +80,7 @@ export default {
     },
     hideModal() {
       this.$refs["my-modal"].hide();
+      this.$emit("hideUpdateModel");
     },
     toggleModal() {
       this.$refs["my-modal"].toggle("#toggle-btn");

@@ -20,6 +20,7 @@
             :modelPicture="item[5]"
             :tags="item[6]"
             @updateEmitIndex="activeIndex($event)"
+            @deleteModelOpen="deleteModelOpen($event)"
           />
           <update-modal-card
             :modelName="card[activeNumber][0]"
@@ -31,6 +32,14 @@
             :tags="card[activeNumber][6]"
             v-if="showModel"
             @closeModel="updateOk($event)"
+            @hideUpdateModel="hideUpdateModel()"
+          />
+          <delete-model-card
+            :modelName="card[activeNumber][0]"
+            v-if="showModelDelete"
+            @deleteModel="deleteModel()"
+            @deleteModelHide="deleteModelHide()"
+            :index="activeNumber"
           />
         </div>
       </b-col>
@@ -50,6 +59,7 @@ export default {
     return {
       card: [],
       showModel: false,
+      showModelDelete: false,
       activeNumber: -1,
     };
   },
@@ -60,24 +70,30 @@ export default {
     activeIndex(e) {
       this.showModel = true;
       this.activeNumber = e;
-      console.log(e);
     },
     updateOk(e) {
       this.card.splice(this.activeNumber, 1, e);
       this.showModel = false;
       this.activeNumber = -1;
     },
+    deleteModelOpen(e) {
+      this.showModelDelete = true;
+      this.activeNumber = e;
+    },
+    deleteModel() {
+      this.card.splice(this.activeNumber, 1);
+      this.showModelDelete = false;
+      this.activeNumber = -1;
+    },
+    deleteModelHide() {
+      this.showModelDelete = false;
+    },
+    hideUpdateModel() {
+      this.showModel = false;
+    },
   },
 };
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
 </style>
